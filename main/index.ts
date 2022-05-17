@@ -16,6 +16,7 @@ export * from './instances/ScopeManager';
 export * from './scopes/IfScope';
 export * from './context/AdaptedContext';
 export * from './adaptor/ProxyAdaptor';
+export * from './instances/Scent';
 
 configuration.merge({
     idGenerator: () => '_' + genOrderedId(),
