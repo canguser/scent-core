@@ -1,0 +1,45 @@
+{
+  "name": "@scent/core",
+  "version": "3.0.0-beta1",
+  "description": "",
+  "main": "dist/scent.core.js",
+  "mainMini": "dist/scent.core.mini.js",
+  "moduleOrigin": "dist/scent.core.esm.js",
+  "module": "dist/scent.core.es.js",
+  "bin": "bin/scent.core.js",
+  "libName": "scent.core",
+  "_sourceName": "scent.core",
+  "author": "Cangshi",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "yarn run rollup && yarn run rollup:mini && yarn run rollup:esm:es5 && yarn run rollup:esm",
+    "build-dev": "yarn run rollup:esm",
+    "do-publish": "yarn run build && yarn run run-publish ",
+    "run-publish": "yarn publish --access public --tag latest --new-version $npm_package_version",
+    "rollup": "rollup -c",
+    "rollup:mini": "cross-env NODE_ENV=prod rollup -c",
+    "rollup:esm": "cross-env NODE_ENV=esm rollup -c",
+    "rollup:esm:es5": "cross-env NODE_ENV=esm5 rollup -c",
+    "gen-dts": "npx tsc main/index.ts --declaration --emitDeclarationOnly --target ES2020 --moduleResolution node --outDir types",
+    "gen-docs": "typedoc --out docs main/*.ts",
+    "gen-dts:docs": "yarn run gen-dts && yarn run gen-docs"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "build",
+    "demo",
+    "docs",
+    "types",
+    "readme.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "dependencies": {
+    "@rapidly/utils": "2.0.0-beta20"
+  },
+  "types": "types/index.d.ts",
+  "devDependencies": {
+  },
+  "repository": "https://github.com/canguser/scent.core.git"
+}
