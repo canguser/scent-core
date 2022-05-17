@@ -1,6 +1,6 @@
 import { configuration } from './configure';
 import { genOrderedId } from '@rapidly/utils/lib/commom/genOrderedId';
-import { ScopeManager } from './scopes/managers/ScopeManager';
+import { ScopeManager } from './instances/ScopeManager';
 import { GlobalContext } from './context/GlobalContext';
 import { IfScope } from './scopes/IfScope';
 import { TextScope } from './scopes/TextScope';
@@ -8,12 +8,21 @@ import { AttrScope } from './scopes/AttrScope';
 import { EventScope } from './scopes/EventScope';
 import { ElementSetterScope } from './scopes/ElementSetterScope';
 import { ForScope } from './scopes/ForScope';
+import { PluginCallback, Scent } from './instances/Scent';
+import { AdaptedContext } from './context/AdaptedContext';
+export * from './configure';
+export * from './scopes/TextScope';
+export * from './instances/ScopeManager';
+export * from './scopes/IfScope';
+export * from './context/AdaptedContext';
+export * from './adaptor/ProxyAdaptor';
 
-configuration.override({
+configuration.merge({
     idGenerator: () => '_' + genOrderedId(),
     instances: {
         scopeManager: new ScopeManager(),
-        globalContext: new GlobalContext()
+        globalContext: new GlobalContext(),
+        scent: new Scent()
     },
     scopes: {
         if: IfScope,
@@ -25,15 +34,22 @@ configuration.override({
     }
 });
 
-export const globalVars = GlobalContext.prototype as any;
+export function getDefaultInstance() {
+    let scent = configuration.get('instances.scent');
+    if (!scent) {
+        scent = new Scent();
+        configuration.merge({ instances: { scent } });
+    }
+    return scent;
+}
 
-export * from './configure';
-export * from './scopes/TextScope';
-export * from './scopes/managers/ScopeManager';
-export * from './scopes/IfScope';
-export * from './context/AdaptedContext';
-export * from './adaptor/ProxyAdaptor';
+export function createContext(context: object): AdaptedContext {
+    const scent = getDefaultInstance();
+    return scent.createContext(context);
+}
 
-export function use(callback: (config: typeof configuration) => void) {
-    callback(configuration);
+export function use(plugin: PluginCallback) {
+    const scent = getDefaultInstance();
+    scent.use(plugin);
+    return scent;
 }

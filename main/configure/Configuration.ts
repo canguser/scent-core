@@ -7,7 +7,7 @@ export class Configuration extends ScentObject{
         [key: string]: any;
     } = {};
 
-    public override(configs): Configuration {
+    public merge(configs): Configuration {
         merge(this.configs, configs);
         return this;
     }
@@ -15,7 +15,7 @@ export class Configuration extends ScentObject{
     public getConfigurationOf(key: string): Configuration {
         const result = new Configuration();
         const config = getProperty(this.configs, key, {});
-        result.override(config);
+        result.merge(config);
         return result;
     }
 

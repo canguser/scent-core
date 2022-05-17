@@ -1,7 +1,7 @@
 import { configuration } from '../configure';
 import { merge } from '../utils/NormalUtils';
 import { Context } from '../context/Context';
-import { ScopeManager } from './managers/ScopeManager';
+import { ScopeManager } from '../instances/ScopeManager';
 import { ScentObject } from '../utils/ScentObject';
 import { groupBy } from '@rapidly/utils/lib/array/groupBy';
 

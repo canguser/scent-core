@@ -3,7 +3,7 @@ import { configuration } from '../configure';
 import { TextScope, TextScopeOptions } from '../scopes/TextScope';
 import { IfScope, IfScopeOptions } from '../scopes/IfScope';
 import { ScentObject } from '../utils/ScentObject';
-import { ScopeManager } from '../scopes/managers/ScopeManager';
+import { ScopeManager } from '../instances/ScopeManager';
 import { ForScope, ForScopeOptions } from '../scopes/ForScope';
 import { BasicScope, BasicScopeOptions } from '../scopes/BasicScope';
 import { AttrScope, AttrScopeOptions } from '../scopes/AttrScope';
@@ -86,7 +86,10 @@ export abstract class Context<
     }
 
     public get contextGetter(): () => T {
-        return () => wrapPrototype(this.context || ({} as T), GlobalContext);
+        const globalContext = this.configuration.get<GlobalContext>('instances.globalContext') || {};
+        const GlobalContextClass = class {};
+        GlobalContextClass.prototype = globalContext;
+        return () => wrapPrototype(this.context || ({} as T), GlobalContextClass);
     }
 
     protected abstract buildContext(context: T): T;

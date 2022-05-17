@@ -1,4 +1,4 @@
-import { ScopeManager } from '../scopes/managers/ScopeManager';
+import { ScopeManager } from '../instances/ScopeManager';
 
 export class ProxyAdaptor {
     renderIdList = [];

@@ -1,5 +1,5 @@
 import { Context } from './Context';
-import { ScopeManager } from '../scopes/managers/ScopeManager';
+import { ScopeManager } from '../instances/ScopeManager';
 import { ProxyAdaptor } from '../adaptor/ProxyAdaptor';
 
 export class AdaptedContext extends Context {
