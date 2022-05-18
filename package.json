@@ -15,7 +15,7 @@
     "types": "typing/index.d.ts",
     "scripts": {
         "build": "yarn run tsc:rebuild && yarn run rollup && yarn run rollup:mini && yarn run rollup:esm",
-        "build-dev": "yarn run rollup:esm",
+        "build-dev": "yarn run tsc:rebuild && yarn run rollup:esm",
         "do-publish": "yarn run build && yarn run run-publish ",
         "run-publish": "yarn publish --access public --tag latest --new-version $npm_package_version",
         "rollup": "rollup -c",

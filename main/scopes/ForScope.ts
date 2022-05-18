@@ -132,7 +132,8 @@ export class ForScope extends BasicScope<Element, ForScopeOptions> {
                     this.getContextObject()[p] = value;
                     return true;
                 }
-            }
+            },
+            configuration: this.configuration
         });
     }
 }

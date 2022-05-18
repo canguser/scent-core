@@ -81,15 +81,15 @@ export abstract class Context<
         this.context = this.buildContext(context || ({} as T));
     }
 
-    protected get configuration(): typeof configuration {
+    public get configuration(): typeof configuration {
         return this.options.configuration;
     }
 
     public get contextGetter(): () => T {
         const globalContext = this.configuration.get<GlobalContext>('instances.globalContext') || {};
-        const GlobalContextClass = class {};
+        const GlobalContextClass = function() {};
         GlobalContextClass.prototype = globalContext;
-        return () => wrapPrototype(this.context || ({} as T), GlobalContextClass);
+        return () => wrapPrototype(this.context || ({} as T), GlobalContextClass as any);
     }
 
     protected abstract buildContext(context: T): T;

@@ -25,7 +25,8 @@ export class Scent extends ScentObject {
             idGenerator: () => '_' + genOrderedId(),
             instances: {
                 scopeManager: new ScopeManager(),
-                globalContext: this.globalContext
+                globalContext: this.globalContext,
+                scent: this,
             },
             scopes: {
                 if: IfScope,

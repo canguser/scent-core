@@ -32,7 +32,14 @@ export abstract class BasicScope<
         super();
         this.target = target;
         this.context = context;
-        this.options = merge({} as Option, defaultOptions, options);
+        this.options = merge(
+            {} as Option,
+            defaultOptions,
+            {
+                configuration: this.context.configuration
+            },
+            options
+        );
         const { configuration } = this.options;
         // gen self id
         const idGenerator = configuration.get<Function>('idGenerator');

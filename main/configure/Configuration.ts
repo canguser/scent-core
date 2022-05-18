@@ -1,21 +1,22 @@
 import { getProperty } from '@rapidly/utils/lib/object/getProperty';
 import { merge } from '../utils/NormalUtils';
 import { ScentObject } from '../utils/ScentObject';
+import { configureMerge, MergeOptions } from '@rapidly/utils/lib/commom/object/merge';
 
-export class Configuration extends ScentObject{
+export class Configuration extends ScentObject {
     configs: {
         [key: string]: any;
     } = {};
 
-    public merge(configs): Configuration {
-        merge(this.configs, configs);
+    public merge(configs: object, options?: MergeOptions): Configuration {
+        const mergeFn = options ? configureMerge(options) : merge;
+        mergeFn(this.configs, configs);
         return this;
     }
 
     public getConfigurationOf(key: string): Configuration {
         const result = new Configuration();
-        const config = getProperty(this.configs, key, {});
-        result.merge(config);
+        result.configs = getProperty(this.configs, key, {});
         return result;
     }
 
