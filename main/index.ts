@@ -10,6 +10,7 @@ import { ElementSetterScope } from './scopes/ElementSetterScope';
 import { ForScope } from './scopes/ForScope';
 import { PluginCallback, Scent } from './instances/Scent';
 import { AdaptedContext } from './context/AdaptedContext';
+import { HtmlScope } from './scopes/HtmlScope';
 export * from './configure';
 export * from './scopes/TextScope';
 export * from './instances/ScopeManager';
@@ -31,7 +32,8 @@ configuration.merge({
         for: ForScope,
         attr: AttrScope,
         event: EventScope,
-        setter: ElementSetterScope
+        setter: ElementSetterScope,
+        html: HtmlScope
     }
 });
 

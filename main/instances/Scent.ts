@@ -10,6 +10,7 @@ import { ForScope } from '../scopes/ForScope';
 import { AttrScope } from '../scopes/AttrScope';
 import { EventScope } from '../scopes/EventScope';
 import { ElementSetterScope } from '../scopes/ElementSetterScope';
+import { HtmlScope } from '../scopes/HtmlScope';
 
 export type PluginCallback = (instance: Scent) => void;
 
@@ -34,7 +35,8 @@ export class Scent extends ScentObject {
                 for: ForScope,
                 attr: AttrScope,
                 event: EventScope,
-                setter: ElementSetterScope
+                setter: ElementSetterScope,
+                html: HtmlScope
             }
         });
     }

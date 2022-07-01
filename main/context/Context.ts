@@ -10,6 +10,7 @@ import { AttrScope, AttrScopeOptions } from '../scopes/AttrScope';
 import { EventScope, EventScopeOptions } from '../scopes/EventScope';
 import { ElementSetterScope, ElementSetterScopeOptions } from '../scopes/ElementSetterScope';
 import { GlobalContext } from './GlobalContext';
+import { HtmlScope, HtmlScopeOptions } from '../scopes/HtmlScope';
 
 export interface ContextOptions {
     configuration?: typeof configuration;
@@ -27,6 +28,7 @@ type Scopes = {
     bindAttr: AttrScope;
     bindEvent: EventScope;
     bindSetter: ElementSetterScope;
+    bindHtml: HtmlScope;
 };
 
 type ScopeOptions = {
@@ -37,6 +39,7 @@ type ScopeOptions = {
     bindAttr: AttrScopeOptions;
     bindEvent: EventScopeOptions;
     bindSetter: ElementSetterScopeOptions;
+    bindHtml: HtmlScopeOptions;
 };
 
 type ScopeBuilder<E> = { [key in keyof Scopes]: (ele: E, options?: ScopeOptions[key]) => string };
