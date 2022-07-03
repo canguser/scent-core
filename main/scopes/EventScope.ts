@@ -31,6 +31,7 @@ export class EventScope extends BasicScope<Element, EventScopeOptions> {
             unregister(this.eventHandlerId);
         }
 
+        console.log('register event', eventName, this.target);
         this.eventHandlerId = register(this.target, eventName, (e) => {
             func.call(this.getContextObject(), e);
         });
