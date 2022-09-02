@@ -1,6 +1,6 @@
 {
     "name": "@scent/core",
-    "version": "3.0.0-beta2",
+    "version": "3.0.0-beta3",
     "description": "",
     "main": "dist/scent.core.js",
     "mainMini": "dist/scent.core.mini.js",

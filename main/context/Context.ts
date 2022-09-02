@@ -81,7 +81,9 @@ export abstract class Context<
     public constructor(context?: T, options?: Options) {
         super();
         this.options = merge({} as Options, defaultOptions, options);
-        this.context = this.buildContext(context || ({} as T));
+        const globalContext = this.configuration.get<GlobalContext>('instances.globalContext') || {};
+        console.log(globalContext)
+        this.context = wrapPrototype(this.buildContext(context || ({} as T)),globalContext as any);
     }
 
     public get configuration(): typeof configuration {
@@ -89,10 +91,10 @@ export abstract class Context<
     }
 
     public get contextGetter(): () => T {
-        const globalContext = this.configuration.get<GlobalContext>('instances.globalContext') || {};
-        const GlobalContextClass = function() {};
-        GlobalContextClass.prototype = globalContext;
-        return () => wrapPrototype(this.context || ({} as T), GlobalContextClass as any);
+        // const globalContext = this.configuration.get<GlobalContext>('instances.globalContext') || {};
+        // const GlobalContextClass = function() {};
+        // GlobalContextClass.prototype = globalContext;
+        return () => this.context;
     }
 
     protected abstract buildContext(context: T): T;

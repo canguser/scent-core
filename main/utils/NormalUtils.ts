@@ -168,11 +168,11 @@ export function wrapPrototype<T extends object, C>(obj: T, type: Constructor<C>)
             },
             {
                 get(target, prop, receiver) {
-                    const originValue = Reflect.get(target.origin, prop);
+                    const originValue = Reflect.get(target.origin || {}, prop);
                     if (originValue !== undefined) {
                         return originValue;
                     }
-                    return Reflect.get(target.wrapped, prop);
+                    return Reflect.get(target.wrapped || {}, prop);
                 },
                 set() {
                     return false;
