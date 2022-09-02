@@ -82,7 +82,6 @@ export abstract class Context<
         super();
         this.options = merge({} as Options, defaultOptions, options);
         const globalContext = this.configuration.get<GlobalContext>('instances.globalContext') || {};
-        console.log(globalContext)
         this.context = wrapPrototype(this.buildContext(context || ({} as T)),globalContext as any);
     }
 
